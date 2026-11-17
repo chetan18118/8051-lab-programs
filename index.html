@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8051 Microcontroller Lab Programs</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --card-bg: #ffffff;
+            --primary: #2563eb;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 2rem; 
+        }
+        .container { max-width: 850px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 3rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #0f172a; }
+        .experiment { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 2rem; 
+            margin-bottom: 2rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        }
+        h2 { color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        h3 { margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.2rem; color: #1e293b; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+        p { margin-bottom: 1rem; }
+        
+        /* Code block and Copy button styles */
+        .code-wrapper {
+            position: relative;
+            margin-top: 1rem;
+        }
+        pre { 
+            background-color: var(--code-bg); 
+            color: var(--code-text); 
+            padding: 3rem 1.2rem 1.2rem 1.2rem; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            font-family: "Courier New", Courier, monospace; 
+            line-height: 1.5; 
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #2563eb;
+        }
+        .copy-btn.copied {
+            background-color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>8051 Microcontroller Programs</h1>
+            <p>Complete lab practical codes with easy copy functionality.</p>
+        </header>
+
+        <div class="experiment">
+            <h2>Experiment 1: Arithmetic Operations Using 8051[cite: 1]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to perform arithmetic operations using the 8051 microcontroller.[cite: 1]</p>
+            <h3>CODE[cite: 1, 2]</h3>
+            <pre><code>ORG 0000H
+; ADDITION
+MOV A, #15H
+MOV B, #10H
+ADD A, B
+MOV 40H, A
+; SUBTRACTION
+MOV A, #15H
+CLR C
+SUBB A, #10H
+MOV 41H, A
+; MULTIPLICATION
+MOV A, #05H
+MOV B, #07H
+MUL AB
+MOV 42H, A
+MOV 43H, B
+; DIVISION
+MOV A, #24H
+MOV B, #05H
+DIV AB
+MOV 44H, A
+MOV 45H, B
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 2: Logical Operations Using 8051[cite: 3]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to perform AND, OR, XOR, and NOT operations using the 8051 microcontroller.[cite: 3]</p>
+            <h3>CODE[cite: 3, 4]</h3>
+            <pre><code>ORG 0000H
+; AND OPERATION
+MOV A, #35H
+MOV R0, #25H
+ANL A, RO
+MOV 40H, A
+; OR OPERATION
+MOV A, #35H
+MOV R0, #25H
+ORL A, RO
+MOV 41H, A
+; XOR OPERATION
+MOV A, #35H
+MOV R0, #25H
+XRL A, RO
+MOV 42H, A
+; NOT OPERATION
+MOV A, #35H
+CPL A
+MOV 43H, A
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 3: Block Transfer Using Internal RAM[cite: 5]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to transfer a block of 10 bytes from source address 20H to destination address 40H using internal RAM.[cite: 5]</p>
+            <h3>CODE[cite: 5]</h3>
+            <pre><code>ORG 0000H
+MOV R0, #20H
+MOV R1, #40H
+MOV R2, #0AH
+BACK:
+MOV A, @RO
+MOV @R1, A
+INC RO
+INC R1
+DJNZ R2, BACK
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 4: Exchange Two Blocks of Data[cite: 6]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to exchange two blocks of five bytes, starting at internal RAM addresses 20H and 40H.[cite: 6]</p>
+            <h3>CODE[cite: 6, 7]</h3>
+            <pre><code>ORG 0000H
+MOV R0, #20H
+MOV R1, #40H
+MOV R2, #05H
+EXCHANGE:
+MOV A, @RO
+MOV B, @R1
+MOV @RO, B
+MOV @R1, A
+INC RO
+INC R1
+DJNZ R2, EXCHANGE
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 5: Addition Using Indirect Addressing Mode[cite: 7]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to add the bytes stored at RAM locations 34H and 35H and store the result in R5 (LSB) and R6 (carry/MSB).[cite: 7]</p>
+            <h3>CODE[cite: 7, 8]</h3>
+            <pre><code>ORG 0000H
+MOV R0, #34H
+MOV A, @RO
+MOV R1, #35H
+ADD A, @R1
+MOV R5, A
+MOV R6, #00H
+JNC NEXT
+INC R6
+NEXT: SJMP NEXT
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 6: Subtraction Using Internal RAM[cite: 8]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to subtract the byte stored at RAM location 35H from the byte stored at 34H and store the result in R5 and the borrow indication in R6.[cite: 8]</p>
+            <h3>CODE[cite: 8, 9]</h3>
+            <pre><code>ORG 0000H
+MOV R0, #34H
+MOV A, @RO
+MOV R1, #35H
+CLR C
+SUBB A, @R1
+MOV R5, A
+MOV R6, #00H
+JNC NEXT
+INC R6
+NEXT: SJMP NEXT
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 7: Multiplication of Two 8-Bit Numbers[cite: 9]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to multiply two 8-bit numbers stored at RAM locations 30H and 31H and store the 16-bit result at 32H and 33H.[cite: 9]</p>
+            <h3>CODE[cite: 10]</h3>
+            <pre><code>ORG 0000H
+MOV R0, #30H
+MOV A, @RO
+INC RO
+MOV B, @RO
+MUL AB
+MOV R0, #32H
+MOV @RO, A
+INC RO
+MOV @RO, B
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 8: Division of Two 8-Bit Numbers[cite: 11]</h2>
+            <h3>AIM</h3>
+            <p>Write an assembly language program to divide an 8-bit number by another 8-bit number using the 8051 microcontroller.[cite: 11]</p>
+            <h3>CODE[cite: 11]</h3>
+            <pre><code>ORG 0000H
+MOV A, 30H
+MOV B, 31H
+DIV AB
+MOV 32H, A
+MOV 33H, B
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 9: Separation of Positive and Negative Numbers[cite: 12]</h2>
+            <h3>A. Separation of Positive Numbers[cite: 12]</h3>
+            <p><strong>AIM:</strong> Write assembly language programs to separate positive and negative numbers from an array stored in internal RAM.[cite: 12]</p>
+            <h4>CODE[cite: 12, 13]</h4>
+            <pre><code>ORG 0000H
+MOV R0, #30H
+MOV R1, #50H
+MOV R2, #05H
+BACK:
+MOV A, @RO
+JB ACC.7, SKIP
+MOV @R1, A
+INC R1
+SKIP:
+INC RO
+DJNZ R2, BACK
+HERE: SJMP HERE
+END</code></pre>
+            
+            <hr style="margin: 2rem 0; border: 1px solid #e2e8f0;">
+            
+            <h3>B. Separation of Negative Numbers[cite: 13]</h3>
+            <h4>CODE[cite: 13, 14]</h4>
+            <pre><code>ORG 0000H
+MOV R0, #30H
+MOV R1, #50H
+MOV R2, #05H
+BACK:
+MOV A, @RO
+JNB ACC.7, SKIP
+MOV @R1, A
+INC R1
+SKIP:
+INC RO
+DJNZ R2, BACK
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+
+        <div class="experiment">
+            <h2>Experiment 10: Separation of Even and Odd Numbers[cite: 14]</h2>
+            <h3>A. Separation of Even Numbers[cite: 14]</h3>
+            <p><strong>AIM:</strong> Write assembly language programs to separate even and odd numbers from an array stored in internal RAM.[cite: 14]</p>
+            <h4>CODE[cite: 14, 15]</h4>
+            <pre><code>ORG 0000H
+MOV R0, #30H
+MOV R1, #50H
+MOV R2, #05H
+BACK:
+MOV A, @RO
+JB ACC.0, SKIP
+MOV @R1, A
+INC R1
+SKIP:
+INC RO
+DJNZ R2, BACK
+HERE: SJMP HERE
+END</code></pre>
+            
+            <hr style="margin: 2rem 0; border: 1px solid #e2e8f0;">
+            
+            <h3>B. Separation of Odd Numbers[cite: 15]</h3>
+            <h4>CODE[cite: 16]</h4>
+            <pre><code>ORG 0000H
+MOV R0, #30H
+MOV R1, #50H
+MOV R2, #05H
+BACK:
+MOV A, @RO
+JNB ACC.0, SKIP
+MOV @R1, A
+INC R1
+SKIP:
+INC RO
+DJNZ R2, BACK
+HERE: SJMP HERE
+END</code></pre>
+        </div>
+    </div>
+
+    <!-- JavaScript to enable the Copy functionality -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const preTags = document.querySelectorAll("pre");
+            
+            preTags.forEach((pre) => {
+                // Wrap pre tag in a relative div
+                const wrapper = document.createElement("div");
+                wrapper.className = "code-wrapper";
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+
+                // Create copy button
+                const button = document.createElement("button");
+                button.className = "copy-btn";
+                button.innerText = "Copy";
+                
+                // Add click event to copy code
+                button.addEventListener("click", () => {
+                    const codeText = pre.querySelector("code") ? pre.querySelector("code").innerText : pre.innerText;
+                    
+                    navigator.clipboard.writeText(codeText).then(() => {
+                        button.innerText = "Copied!";
+                        button.classList.add("copied");
+                        
+                        // Revert back after 2 seconds
+                        setTimeout(() => {
+                            button.innerText = "Copy";
+                            button.classList.remove("copied");
+                        }, 2000);
+                    }).catch((err) => {
+                        console.error("Failed to copy code: ", err);
+                    });
+                });
+
+                wrapper.appendChild(button);
+            });
+        });
+    </script>
+</body>
+</html>
